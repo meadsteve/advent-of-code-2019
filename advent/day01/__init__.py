@@ -1,5 +1,3 @@
-from typing import Iterable, Callable
-
 from advent.common import lines_from_file
 
 Mass = int
@@ -19,17 +17,13 @@ def simple_fuel_required(mass):
     return max((mass // 3) - 2, 0)
 
 
-def total_fuel(masses: Iterable[Mass], fuel_calc: Callable[[Mass], Fuel] = simple_fuel_required) -> Fuel:
-    return sum(fuel_calc(mass) for mass in masses)
-
-
 def solve_part_one():
     raw_masses = lines_from_file("advent/day01/input.txt")
     masses = (int(raw_mass) for raw_mass in raw_masses)
-    return total_fuel(masses)
+    return sum(simple_fuel_required(mass) for mass in masses)
 
 
 def solve_part_two():
     raw_masses = lines_from_file("advent/day01/input.txt")
     masses = (int(raw_mass) for raw_mass in raw_masses)
-    return total_fuel(masses, fuel_required)
+    return sum(fuel_required(mass) for mass in masses)
