@@ -2,7 +2,7 @@ from copy import copy
 from dataclasses import dataclass
 from typing import List, Tuple, Optional
 
-from advent.day02.input import INPUT
+from advent.day02.input import PUZZLE_INPUT
 
 Opcode = int
 Instruction = Tuple[Opcode, int, int, int]
@@ -73,13 +73,13 @@ def find_target_value(computer: IntCodeComputer, goal: int) -> Optional[NounAndV
 
 
 def part_one():
-    input = IntCodeComputer(INPUT)
-    return get_output_for_input(input, 12, 2)
+    starting_computer = IntCodeComputer(PUZZLE_INPUT)
+    return get_output_for_input(starting_computer, 12, 2)
 
 
 def part_two():
-    input = IntCodeComputer(INPUT)
-    match = find_target_value(input, 19690720)
+    starting_computer = IntCodeComputer(PUZZLE_INPUT)
+    match = find_target_value(starting_computer, 19690720)
     if match:
         (noun, verb) = match
         return (100 * noun) + verb
