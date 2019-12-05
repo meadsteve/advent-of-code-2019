@@ -1,6 +1,6 @@
 from copy import copy
 
-from advent.day02 import IntCodeComputer, next_state, part_one, run
+from advent.day02 import IntCodeComputer, next_state, part_one, run, part_two
 
 
 def test_computer_can_be_copied_but_still_compares_as_its_a_value_object():
@@ -47,3 +47,7 @@ def test_running():
 
 def test_part_one():
     assert part_one() == 4090701
+
+
+def test_part_two():
+    assert part_two() == 134400

@@ -6,6 +6,7 @@ from advent.day02.input import INPUT
 
 Opcode = int
 Instruction = Tuple[Opcode, int, int, int]
+NounAndVerb = Tuple[int, int]
 
 OPCODE_STOP = 99
 OPCODE_ADD = 1
@@ -55,12 +56,31 @@ def run(computer: IntCodeComputer) -> IntCodeComputer:
     return computer
 
 
+def get_output_for_input(computer: IntCodeComputer, a: int, b: int) -> int:
+    computer[1] = a
+    computer[2] = b
+
+    result = run(computer)
+    return result[0]
+
+
+def find_target_value(computer: IntCodeComputer, goal: int) -> Optional[NounAndVerb]:
+    for noun in range(0, 99):
+        for verb in range(0, 99):
+            if get_output_for_input(computer, noun, verb) == goal:
+                return noun, verb
+    return None
+
+
 def part_one():
     input = IntCodeComputer(INPUT)
+    return get_output_for_input(input, 12, 2)
 
-    # hack the main frame
-    input[1] = 12
-    input[2] = 2
 
-    result = run(input)
-    return result[0]
+def part_two():
+    input = IntCodeComputer(INPUT)
+    match = find_target_value(input, 19690720)
+    if match:
+        (noun, verb) = match
+        return (100 * noun) + verb
+    return None
