@@ -56,5 +56,11 @@ def run(computer: IntCodeComputer) -> IntCodeComputer:
 
 
 def part_one():
-    result = run(IntCodeComputer(INPUT))
+    input = IntCodeComputer(INPUT)
+
+    # hack the main frame
+    input[1] = 12
+    input[2] = 2
+
+    result = run(input)
     return result[0]

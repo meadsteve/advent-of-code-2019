@@ -46,4 +46,4 @@ def test_running():
 
 
 def test_part_one():
-    assert part_one() == 490699
+    assert part_one() == 4090701
