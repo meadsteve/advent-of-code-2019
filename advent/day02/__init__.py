@@ -4,7 +4,12 @@ from typing import List, Tuple, Optional
 
 from advent.day02.input import INPUT
 
-Instruction = Tuple[int, int, int, int]
+Opcode = int
+Instruction = Tuple[Opcode, int, int, int]
+
+OPCODE_STOP = 99
+OPCODE_ADD = 1
+OPCODE_MUL = 2
 
 
 @dataclass
@@ -24,7 +29,7 @@ class IntCodeComputer:
     @property
     def running(self):
         (opcode, _, _, _) = self.instruction
-        return opcode != 99
+        return opcode != OPCODE_STOP
 
     @property
     def instruction(self) -> Instruction:
@@ -34,9 +39,9 @@ class IntCodeComputer:
 def next_state(computer: IntCodeComputer) -> IntCodeComputer:
     output = copy(computer)
     (opcode, a, b, c) = output.instruction
-    if opcode == 1:
+    if opcode == OPCODE_ADD:
         output[c] = output[a] + output[b]
-    elif opcode == 2:
+    elif opcode == OPCODE_MUL:
         output[c] = output[a] * output[b]
     else:
         raise RuntimeError(f"{opcode} isn't a valid opcode")
