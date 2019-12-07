@@ -1,5 +1,7 @@
 from copy import copy
 
+import pytest
+
 from advent.day02 import IntCodeComputer, next_state, part_one, run, part_two
 
 
@@ -45,9 +47,11 @@ def test_running():
     assert result == IntCodeComputer([30, 1, 1, 4, 2, 5, 6, 0, 99], position=8)
 
 
+@pytest.mark.skip("Solution is slow")
 def test_part_one():
     assert part_one() == 4090701
 
 
+@pytest.mark.skip("Solution is slow")
 def test_part_two():
     assert part_two() == 134400
