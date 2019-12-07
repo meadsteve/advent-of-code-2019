@@ -33,6 +33,7 @@ def test_find_crossing_points():
 
 def test_distance_from_origin():
     assert Point(1, 2).distance_from_o == 3
+    assert Point(1, -2).distance_from_o == 3
 
 
 def test_string_decoding():
@@ -41,4 +42,4 @@ def test_string_decoding():
 
 
 def test_part_one():
-    assert part_one() == []
+    assert part_one() == 806
