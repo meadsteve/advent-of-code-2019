@@ -5,7 +5,7 @@ from advent.day03.models import Wire, Point
 
 
 def from_strings(input: Iterable[str]) -> Wire:
-    wire = [Point(0, 0)]
+    wire = Wire([Point(0, 0)])
     for statement in input:
         direction = statement[0: 1]
         distance = int(statement[1:])
@@ -23,6 +23,7 @@ def from_strings(input: Iterable[str]) -> Wire:
 
 
 sign = lambda a: (a > 0) - (a < 0)
+
 
 # TODO: make refactor the common stuff in these four
 def move_right(wire: Wire, distance) -> Wire:

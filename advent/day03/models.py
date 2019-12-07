@@ -1,8 +1,6 @@
 from dataclasses import dataclass
 from typing import List
 
-Wire = List["Point"]
-
 
 @dataclass
 class Point:
@@ -15,3 +13,14 @@ class Point:
 
     def __hash__(self):
         return hash(f'{self.x}-{self.y}')
+
+
+@dataclass
+class Wire:
+    path: List[Point]
+
+    def append(self, point: Point):
+        self.path.append(point)
+
+    def __getitem__(self, k):
+        return self.path[k]
