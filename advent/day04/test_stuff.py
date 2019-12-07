@@ -1,4 +1,7 @@
-from advent.day04 import digit_neighbours_exist, digits_ascend, part_one
+import pytest
+
+from advent.day04 import digit_neighbours_exist, digits_ascend, part_one, digit_neighbours_exist_only_as_a_pair, \
+    part_two
 
 
 def test_digit_neighbours():
@@ -18,5 +21,21 @@ def test_digits_ascend():
     assert not digits_ascend(121456)
 
 
+def test_digit_neighbours_exist_only_as_a_pair():
+    assert digit_neighbours_exist_only_as_a_pair(113456)
+    assert digit_neighbours_exist_only_as_a_pair(123455)
+    assert digit_neighbours_exist_only_as_a_pair(111445)
+
+    assert not digit_neighbours_exist_only_as_a_pair(111456)
+    assert not digit_neighbours_exist_only_as_a_pair(123555)
+    assert not digit_neighbours_exist_only_as_a_pair(125556)
+
+
+@pytest.mark.skip("Solution is slow")
 def test_part_one():
     assert part_one() == 2814
+
+
+@pytest.mark.skip("Solution is slow")
+def test_part_two():
+    assert part_two() == 1991
