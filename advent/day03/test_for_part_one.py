@@ -1,3 +1,5 @@
+import pytest
+
 from advent.day03.solutions import part_one
 from advent.day03.wire_logic import crosses
 from advent.day03.models import Wire, Point
@@ -41,5 +43,6 @@ def test_string_decoding():
     assert result == Wire([Point(0, 0), Point(0, 1), Point(0, 2), Point(1, 2), Point(2, 2), Point(3, 2)])
 
 
+@pytest.mark.skip("Solution is slow")
 def test_part_one():
     assert part_one() == 806

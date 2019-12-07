@@ -28,10 +28,10 @@ class Wire:
             self.append(point)
 
     def append(self, point: Point):
-        self._current_length \
-            = self._length_at_point.get(hash(point)) or (self._current_length + 1)
+        self._current_length = self._current_length + 1
         self.path.append(point)
-        self._length_at_point[hash(point)] = self._current_length
+        if self._length_at_point.get(hash(point)) is None:
+            self._length_at_point[hash(point)] = self._current_length
 
     def __getitem__(self, k):
         return self.path[k]
