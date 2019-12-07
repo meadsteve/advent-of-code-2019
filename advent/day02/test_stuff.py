@@ -2,7 +2,8 @@ from copy import copy
 
 import pytest
 
-from advent.day02 import IntCodeComputer, next_state, part_one, run, part_two
+from advent.day02.computer import IntCodeComputer, next_state, run
+from advent.day02 import part_one, part_two
 
 
 def test_computer_can_be_copied_but_still_compares_as_its_a_value_object():
@@ -54,4 +55,4 @@ def test_part_one():
 
 @pytest.mark.skip("Solution is slow")
 def test_part_two():
-    assert part_two() == 134400
+    assert part_two() == 6421
