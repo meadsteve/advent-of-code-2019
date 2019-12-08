@@ -1,18 +1,23 @@
 from typing import Callable, List, Tuple
 
-from advent.day02.computer import DEFAULT_INSTRUCTION_SET, IntCodeComputer, ParameterModes, next_state, OPCODE_STOP
+from advent.day02.computer import DEFAULT_INSTRUCTION_SET, IntCodeComputer, ParameterModes, next_state, OPCODE_STOP, \
+    InstructionSet
 from advent.day05.input import INPUT
 
 OutputData = List[int]
 
 
-def run(computer: IntCodeComputer, input_value=OPCODE_STOP) -> Tuple[IntCodeComputer, OutputData]:
+def run(
+    computer: IntCodeComputer,
+    input_value: int=OPCODE_STOP,
+    instructions: InstructionSet=None
+) -> Tuple[IntCodeComputer, OutputData]:
     output: OutputData = []
+    extended_instructions = instructions.copy() if instructions else DEFAULT_INSTRUCTION_SET.copy()
 
     def add_output(new, existing: OutputData):
         existing.append(new)
 
-    extended_instructions = DEFAULT_INSTRUCTION_SET.copy()
     extended_instructions[3] = create_read_instruction(lambda: input_value)
     extended_instructions[4] = create_output_instruction(lambda o: add_output(o, output))
     while computer.running:

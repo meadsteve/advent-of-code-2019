@@ -1,5 +1,6 @@
 from advent.day02 import IntCodeComputer
 from advent.day05 import run, part_one
+from advent.day05.part_two import part_two
 
 
 def test_value_mode():
@@ -31,3 +32,7 @@ def test_example():
 
 def test_part_one():
     assert part_one() == [0, 0, 0, 0, 0, 0, 0, 0, 0, 9938601]
+
+
+def test_part_two():
+    assert part_two() == [4283952]
