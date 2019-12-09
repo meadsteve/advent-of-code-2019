@@ -1,4 +1,4 @@
-from advent.day06 import new_map, add_orbit, OrbitalItem, solve_part_one
+from advent.day06 import new_map, add_orbit, OrbitalItem, solve_part_one, orbital_chain, solve_part_two
 
 
 def test_adds_an_orbital_relationship():
@@ -32,5 +32,19 @@ def test_total_orbiters_can_be_counted_if_defined_backwards():
     assert orbits["COM"].total_orbital_count == 2
 
 
+def test_get_orbital_chain():
+    orbits = new_map()
+    add_orbit(orbits, "COM", "B")
+    add_orbit(orbits, "B", "C")
+    add_orbit(orbits, "C", "A")
+    add_orbit(orbits, "C", "X")
+
+    assert orbital_chain(orbits["COM"], orbits["X"]) == ["X", "C", "B", "COM"]
+
+
 def test_part_one():
     assert solve_part_one() == 453028
+
+
+def test_part_two():
+    assert solve_part_two() == 562
