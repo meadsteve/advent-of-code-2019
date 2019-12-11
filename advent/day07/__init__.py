@@ -16,7 +16,6 @@ def _run(code, input_stream):
 
 
 def amplifier(values, input_code=None) -> int:
-    """ 3,1,2,4,0 """
     code = IntCodeComputer(input_code or INPUT)
 
     [a, b, c, d, e] = values
@@ -31,12 +30,14 @@ def amplifier(values, input_code=None) -> int:
 
 
 def _combinations() -> Iterable[List[int]]:
-    for a in range(0, 10):
-        for b in range(0, 10):
-            for c in range(0, 10):
-                for d in range(0, 10):
-                    for e in range(0, 10):
-                        yield [a, b, c, d, e]
+    for a in range(0, 5):
+        for b in range(0, 5):
+            for c in range(0, 5):
+                for d in range(0, 5):
+                    for e in range(0, 5):
+                        combination = [a, b, c, d, e]
+                        if len(combination) == len(set(combination)):
+                            yield combination
 
 
 def part_one():

@@ -1,3 +1,5 @@
+import pytest
+
 from advent.day07 import amplifier, part_one
 
 
@@ -18,5 +20,6 @@ def test_next_next_example():
     assert thrust == 65210
 
 
+@pytest.mark.slowish
 def test_part_one():
-    assert part_one() == 3654736
+    assert part_one() == 116680
