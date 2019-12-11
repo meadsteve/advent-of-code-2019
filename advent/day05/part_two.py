@@ -45,4 +45,4 @@ def part_two():
 
     starting_computer = IntCodeComputer(INPUT)
     output = run(starting_computer, 5, extended_instructions)
-    return output[1]
+    return list(output)[0]

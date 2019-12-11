@@ -23,24 +23,24 @@ def test_computer_can_be_copied_and_when_the_list_is_mutated_they_are_not_equal(
 
 def test_opcode_1():
     prog = IntCodeComputer([1, 0, 0, 0, 99])
-    next = next_state(prog, DEFAULT_INSTRUCTION_SET)
+    (next_machine_state, _) = next_state(prog, DEFAULT_INSTRUCTION_SET)
 
-    assert next == IntCodeComputer([2, 0, 0, 0, 99], position=4)
+    assert next_machine_state == IntCodeComputer([2, 0, 0, 0, 99], position=4)
 
 
 def test_opcode_2():
     prog = IntCodeComputer([2, 3, 0, 3, 99])
-    next = next_state(prog, DEFAULT_INSTRUCTION_SET)
+    (next_machine_state, _) = next_state(prog, DEFAULT_INSTRUCTION_SET)
 
-    assert next == IntCodeComputer([2, 3, 0, 6, 99], position=4)
+    assert next_machine_state == IntCodeComputer([2, 3, 0, 6, 99], position=4)
 
 
 def test_opcode_99_marks_the_program_as_done():
     prog = IntCodeComputer([1, 0, 0, 0, 99])
-    next = next_state(prog, DEFAULT_INSTRUCTION_SET)
+    (next_machine_state, _) = next_state(prog, DEFAULT_INSTRUCTION_SET)
 
     assert prog.running
-    assert not next.running
+    assert not next_machine_state.running
 
 
 def test_running():
@@ -48,11 +48,11 @@ def test_running():
     assert result == IntCodeComputer([30, 1, 1, 4, 2, 5, 6, 0, 99], position=8)
 
 
-@pytest.mark.skip("Solution is slow")
+@pytest.mark.slowish
 def test_part_one():
     assert part_one() == 4090701
 
 
-@pytest.mark.skip("Solution is slow")
+@pytest.mark.slowish
 def test_part_two():
     assert part_two() == 6421

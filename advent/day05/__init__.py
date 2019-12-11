@@ -1,48 +1,52 @@
-from typing import Callable, List, Tuple
+from typing import Callable, List, Iterable
+
+import typing
 
 from advent.day02.computer import DEFAULT_INSTRUCTION_SET, IntCodeComputer, ParameterModes, next_state, OPCODE_STOP, \
     InstructionSet
 from advent.day05.input import INPUT
-
-OutputData = List[int]
 
 
 def run(
     computer: IntCodeComputer,
     input_value: int=OPCODE_STOP,
     instructions: InstructionSet=None
-) -> Tuple[IntCodeComputer, OutputData]:
-    output: OutputData = []
+) -> typing.Generator[int, None, None]:
     extended_instructions = instructions.copy() if instructions else DEFAULT_INSTRUCTION_SET.copy()
 
-    def add_output(new, existing: OutputData):
-        existing.append(new)
+    extended_instructions[3] = create_read_instruction([input_value])
+    extended_instructions[4] = create_output_instruction()
 
-    extended_instructions[3] = create_read_instruction(lambda: input_value)
-    extended_instructions[4] = create_output_instruction(lambda o: add_output(o, output))
     while computer.running:
-        computer = next_state(computer, extended_instructions)
-    return computer, output
+        (computer, output) = next_state(computer, extended_instructions)
+        if output is not None:
+            yield output
 
 
-def create_read_instruction(reader: Callable[[], int]):
+def create_read_instruction(input_stream: Iterable[int]):
+    def _iter():
+        yield from input_stream
+    iter_stream = _iter()
+
     def _opcode_read(computer: IntCodeComputer, _pos_modes: ParameterModes):
         memory_location = computer.read(1, 1)[0]
-        computer[memory_location] = reader()
+        computer[memory_location] = next(iter_stream)
         computer.position = computer.position + 2
     return _opcode_read
 
 
-def create_output_instruction(outputer: Callable[[int], None]):
+def create_output_instruction():
     def _opcode_write(computer: IntCodeComputer, pos_modes: ParameterModes):
         memory_location = computer.read(1, 1)[0]
         [mode, _, _] = pos_modes
-        outputer(computer[memory_location, mode])
+        result = computer[memory_location, mode]
         computer.position = computer.position + 2
+        return result
+
     return _opcode_write
 
 
 def part_one():
     starting_computer = IntCodeComputer(INPUT)
     output = run(starting_computer, 1)
-    return output[1]
+    return list(output)[-1]

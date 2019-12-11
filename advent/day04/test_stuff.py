@@ -31,11 +31,11 @@ def test_digit_neighbours_exist_only_as_a_pair():
     assert not digit_neighbours_exist_only_as_a_pair(125556)
 
 
-@pytest.mark.skip("Solution is slow")
+@pytest.mark.slowish
 def test_part_one():
     assert part_one() == 2814
 
 
-@pytest.mark.skip("Solution is slow")
+@pytest.mark.slowish
 def test_part_two():
     assert part_two() == 1991

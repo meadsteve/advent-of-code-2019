@@ -1,7 +1,7 @@
 from copy import copy
 from dataclasses import dataclass
 from enum import Enum, auto
-from typing import List, Tuple, Dict, Callable
+from typing import List, Tuple, Dict, Callable, Optional
 
 Opcode = int
 Instruction = List[int]
@@ -79,16 +79,16 @@ DEFAULT_INSTRUCTION_SET: InstructionSet = {
 }
 
 
-def next_state(computer: IntCodeComputer, instructions: InstructionSet) -> IntCodeComputer:
-    output = copy(computer)
-    command = output.read(1)[0]
+def next_state(computer: IntCodeComputer, instructions: InstructionSet) -> Tuple[IntCodeComputer, Optional[int]]:
+    updated_computer = copy(computer)
+    command = updated_computer.read(1)[0]
     opcode = _parse_opcode(command)
     position_modes = _parse_parameter_modes(command)
     try:
-        instructions[opcode](output, position_modes)
+        result = instructions[opcode](updated_computer, position_modes)
     except KeyError:
         raise RuntimeError(f"{opcode} isn't a valid opcode")
-    return output
+    return updated_computer, result
 
 
 def _parse_parameter_modes(command: int) -> ParameterModes:
@@ -110,5 +110,5 @@ def _parse_opcode(command: int) -> int:
 def run(computer: IntCodeComputer, instructions: InstructionSet = None) -> IntCodeComputer:
     instructions = instructions or DEFAULT_INSTRUCTION_SET
     while computer.running:
-        computer = next_state(computer, instructions)
+        (computer, _) = next_state(computer, instructions)
     return computer

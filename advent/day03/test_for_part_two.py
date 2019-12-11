@@ -16,6 +16,6 @@ def test_a_wire_that_loops_is_shorter_than_it_appears():
     assert wire.signal_delay(Point(2, 1)) == 3  # not 7
 
 
-@pytest.mark.skip("Solution is slow")
+@pytest.mark.slowish
 def test_part_two():
     assert part_two() == 66076
