@@ -35,14 +35,15 @@ def opcode_equals(computer: IntCodeComputer, pos_modes: ParameterModes):
     computer.position = computer.position + 4
 
 
+INSTRUCTION_SET = DEFAULT_INSTRUCTION_SET.copy()
+
+INSTRUCTION_SET[5] = opcode_jump_if_true
+INSTRUCTION_SET[6] = opcode_jump_if_false
+INSTRUCTION_SET[7] = opcode_less_than
+INSTRUCTION_SET[8] = opcode_equals
+
+
 def part_two():
-    extended_instructions = DEFAULT_INSTRUCTION_SET.copy()
-
-    extended_instructions[5] = opcode_jump_if_true
-    extended_instructions[6] = opcode_jump_if_false
-    extended_instructions[7] = opcode_less_than
-    extended_instructions[8] = opcode_equals
-
     starting_computer = IntCodeComputer(INPUT)
-    output = run(starting_computer, [5], extended_instructions)
+    output = run(starting_computer, [5], INSTRUCTION_SET)
     return list(output)[0]

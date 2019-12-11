@@ -19,4 +19,4 @@ def test_next_next_example():
 
 
 def test_part_one():
-    assert part_one() == "???"
+    assert part_one() == 3654736

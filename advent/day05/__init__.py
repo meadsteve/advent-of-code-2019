@@ -26,6 +26,8 @@ def run(
 def create_read_instruction(input_stream: Iterable[int]):
     def _iter():
         yield from input_stream
+        while True:
+            yield 0  # pad out short inputs
     iter_stream = _iter()
 
     def _opcode_read(computer: IntCodeComputer, _pos_modes: ParameterModes):
