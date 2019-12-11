@@ -44,5 +44,5 @@ def part_two():
     extended_instructions[8] = opcode_equals
 
     starting_computer = IntCodeComputer(INPUT)
-    output = run(starting_computer, 5, extended_instructions)
+    output = run(starting_computer, [5], extended_instructions)
     return list(output)[0]

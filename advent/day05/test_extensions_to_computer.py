@@ -12,7 +12,7 @@ def test_writing_to_output():
 
 def test_example():
     prog = IntCodeComputer([3, 0, 4, 0, 99])
-    output = list(run(prog, 56))
+    output = list(run(prog, [56]))
     assert output[0] == 56
 
 

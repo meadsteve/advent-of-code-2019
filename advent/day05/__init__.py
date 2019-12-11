@@ -9,12 +9,12 @@ from advent.day05.input import INPUT
 
 def run(
     computer: IntCodeComputer,
-    input_value: int=OPCODE_STOP,
-    instructions: InstructionSet=None
+    input_stream: typing.Optional[Iterable[int]] = None,
+    instructions: InstructionSet = None
 ) -> typing.Generator[int, None, None]:
     extended_instructions = instructions.copy() if instructions else DEFAULT_INSTRUCTION_SET.copy()
 
-    extended_instructions[3] = create_read_instruction([input_value])
+    extended_instructions[3] = create_read_instruction(input_stream or [])
     extended_instructions[4] = create_output_instruction()
 
     while computer.running:
@@ -48,5 +48,5 @@ def create_output_instruction():
 
 def part_one():
     starting_computer = IntCodeComputer(INPUT)
-    output = run(starting_computer, 1)
+    output = run(starting_computer, [1])
     return list(output)[-1]
